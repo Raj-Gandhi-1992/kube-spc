@@ -6,7 +6,6 @@ pipeline {
     stage ('kubernetes-config') {
         steps {
             sh '''
-            cd .kube
             kubectl config current-context
             '''
         }
