@@ -3,22 +3,16 @@ pipeline {
     label 'spcjava'
   }
   stages {
-    stage ('kubernetes-config') {
+    stage ('aws-config') {
         steps {
+             withCredentials([['AmazonWebServicesCredentialsBinding',credentialsId:'aws-eks'], file(credentialsId:'kubeconfig-eks', variable: 'KUBECONFIG') ])
+
             sh '''
-            kubectl config current-context
+            kubectl apply -f deploy/.
+            kubectl get svc
             '''
         }
     }
-    stage ('deploy_app_kubernetes') {
-        steps {
-            sh 'kubectl apply -f deploy/.'
-        }
-    }
-    stage ('get_svc_details') {
-        steps {
-            sh 'kubectl get svc'
-        }
-    }
+
  }
 }
