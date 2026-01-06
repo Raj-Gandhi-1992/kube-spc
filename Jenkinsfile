@@ -1,6 +1,6 @@
 pipeline {
   agent {
-    label 'spcjava'
+    label 'java'
   }
   stages {
     stage ('aws-config') {
